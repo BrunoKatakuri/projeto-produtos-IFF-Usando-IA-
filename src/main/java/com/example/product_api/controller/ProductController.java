@@ -2,7 +2,6 @@ package com.example.product_api.controller;
 
 import com.example.product_api.dto.ProductRequestDTO;
 import com.example.product_api.dto.ProductResponseDTO;
-import com.example.product_api.model.Product;
 import com.example.product_api.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
