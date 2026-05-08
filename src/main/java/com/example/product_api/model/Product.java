@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import java.util.UUID;
 
 @Entity
+@Table(name = "products")
 public class Product {
 
     @Id
@@ -13,6 +14,10 @@ public class Product {
     private String name;
     private Double price;
     private String description;
+
+    public Product() {
+
+    }
 
     public String getName() {
         return name;
