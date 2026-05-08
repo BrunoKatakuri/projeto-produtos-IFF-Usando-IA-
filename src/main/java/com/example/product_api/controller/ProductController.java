@@ -12,7 +12,7 @@ import java.util.UUID;
 
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/api/products")
 @CrossOrigin("*")
 public class ProductController {
 
