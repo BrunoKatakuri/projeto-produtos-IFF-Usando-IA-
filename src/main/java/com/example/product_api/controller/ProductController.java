@@ -1,7 +1,10 @@
 package com.example.product_api.controller;
 
+import com.example.product_api.dto.ProductRequestDTO;
+import com.example.product_api.dto.ProductResponseDTO;
 import com.example.product_api.model.Product;
 import com.example.product_api.service.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,46 +23,38 @@ public class ProductController {
         this.service = service;
     }
 
-    // CREATE
     @PostMapping
-    public ResponseEntity<Product> create(@RequestBody Product product) {
-        Product created = service.create(product);
-
-        return ResponseEntity.status(201).body(created);
-    }
-
-    // READ ALL
-    @GetMapping
-    public ResponseEntity<List<Product>> findAll() {
-        List<Product> products = service.findAll();
-
-        return ResponseEntity.ok(products);
-    }
-
-    // READ BY ID
-    @GetMapping("/{id}")
-    public ResponseEntity<Product> findById(@PathVariable UUID id) {
-        Product product = service.findById(id);
-
-        return ResponseEntity.ok(product);
-    }
-
-    // UPDATE
-    @PutMapping("/{id}")
-    public ResponseEntity<Product> update(
-            @PathVariable UUID id,
-            @RequestBody Product product
+    public ResponseEntity<ProductResponseDTO> create(
+            @Valid @RequestBody ProductRequestDTO dto
     ) {
-        Product updated = service.update(id, product);
-
-        return ResponseEntity.ok(updated);
+        return ResponseEntity.status(201).body(service.create(dto));
     }
 
-    // DELETE
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable UUID id) {
-        service.delete(id);
+    @GetMapping
+    public ResponseEntity<List<ProductResponseDTO>> findAll() {
+        return ResponseEntity.ok(service.findAll());
+    }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductResponseDTO> findById(
+            @PathVariable UUID id
+    ) {
+        return ResponseEntity.ok(service.findById(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ProductResponseDTO> update(
+            @PathVariable UUID id,
+            @Valid @RequestBody ProductRequestDTO dto
+    ) {
+        return ResponseEntity.ok(service.update(id, dto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(
+            @PathVariable UUID id
+    ) {
+        service.delete(id);
         return ResponseEntity.noContent().build();
     }
 }

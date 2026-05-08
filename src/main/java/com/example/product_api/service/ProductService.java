@@ -1,5 +1,7 @@
 package com.example.product_api.service;
 
+import com.example.product_api.dto.ProductRequestDTO;
+import com.example.product_api.dto.ProductResponseDTO;
 import com.example.product_api.model.Product;
 import com.example.product_api.repository.ProductRepository;
 import org.springframework.stereotype.Service;
@@ -15,46 +17,60 @@ public class ProductService {
         this.repository = repository;
     }
 
-    public Product create(Product product) {
+    public ProductResponseDTO create(ProductRequestDTO dto) {
 
-        if (product.getName() == null || product.getName().isEmpty()) {
-            throw new RuntimeException("Nome obrigatório");
-        }
+        Product product = new Product();
+        product.setName(dto.getName());
+        product.setPrice(dto.getPrice());
+        product.setDescription(dto.getDescription());
 
-        if (product.getPrice() == null || product.getPrice() <= 0) {
-            throw new RuntimeException("Preço inválido");
-        }
+        Product saved = repository.save(product);
 
-        return repository.save(product);
+        return toResponse(saved);
     }
 
-    // READ ALL
-    public List<Product> findAll() {
-        return repository.findAll();
+    public List<ProductResponseDTO> findAll() {
+        return repository.findAll()
+                .stream()
+                .map(this::toResponse)
+                .toList();
     }
 
-    // RED BY ID
-    public Product findById(UUID id) {
-        return repository.findById(id)
+    public ProductResponseDTO findById(UUID id) {
+        Product product = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+
+        return toResponse(product);
     }
 
-    // UPDATE
-    public Product update(UUID id, Product updatedProduct) {
-        Product product = findById(id);
+    public ProductResponseDTO update(UUID id, ProductRequestDTO dto) {
 
-        product.setName(updatedProduct.getName());
-        product.setPrice(updatedProduct.getPrice());
-        product.setDescription(updatedProduct.getDescription());
+        Product product = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
 
-        return repository.save(product);
+        product.setName(dto.getName());
+        product.setPrice(dto.getPrice());
+        product.setDescription(dto.getDescription());
+
+        Product updated = repository.save(product);
+
+        return toResponse(updated);
     }
 
-    // DELETE
     public void delete(UUID id) {
-        Product product = findById(id);
+        Product product = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
 
         repository.delete(product);
+    }
+
+    private ProductResponseDTO toResponse(Product product) {
+        return new ProductResponseDTO(
+                product.getId(),
+                product.getName(),
+                product.getPrice(),
+                product.getDescription()
+        );
     }
 
 }
