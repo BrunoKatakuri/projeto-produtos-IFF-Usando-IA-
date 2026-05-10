@@ -4,7 +4,6 @@ import com.example.product_api.dto.ProductRequestDTO;
 import com.example.product_api.dto.ProductResponseDTO;
 import com.example.product_api.service.ProductService;
 import org.springframework.web.bind.annotation.*;
-import com.example.product_api.model.Product;
 
 import java.util.List;
 import java.util.UUID;
@@ -41,6 +40,15 @@ public class ProductController {
     ) {
 
         service.delete(id);
+    }
+
+    @PutMapping("/{id}")
+    public ProductResponseDTO update(
+            @PathVariable UUID id,
+            @RequestBody ProductRequestDTO dto
+    ) {
+
+        return service.update(id, dto);
     }
 }
 

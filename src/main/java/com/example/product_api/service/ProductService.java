@@ -43,18 +43,28 @@ public class ProductService {
         return toResponse(product);
     }
 
-    public ProductResponseDTO update(UUID id, ProductRequestDTO dto) {
+    public ProductResponseDTO update(
+            UUID id,
+            ProductRequestDTO dto
+    ) {
 
         Product product = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+                .orElseThrow(() ->
+                        new RuntimeException("Produto não encontrado")
+                );
 
         product.setName(dto.getName());
         product.setPrice(dto.getPrice());
         product.setDescription(dto.getDescription());
 
-        Product updated = repository.save(product);
+        Product updatedProduct = repository.save(product);
 
-        return toResponse(updated);
+        return new ProductResponseDTO(
+                updatedProduct.getId(),
+                updatedProduct.getName(),
+                updatedProduct.getPrice(),
+                updatedProduct.getDescription()
+        );
     }
 
     public void delete(UUID id) {
