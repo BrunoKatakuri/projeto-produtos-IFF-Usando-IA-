@@ -50,6 +50,14 @@ public class ProductController {
 
         return service.update(id, dto);
     }
+
+    @GetMapping("/{id}")
+    public ProductResponseDTO findById(
+            @PathVariable UUID id
+    ) {
+
+        return service.findById(id);
+    }
 }
 
 

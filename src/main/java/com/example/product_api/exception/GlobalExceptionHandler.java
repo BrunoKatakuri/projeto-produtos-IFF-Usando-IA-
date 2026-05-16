@@ -4,16 +4,23 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<ErrorResponse> handleRuntime(
-            RuntimeException ex
+    @ExceptionHandler(ProductNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleProductNotFound(
+            ProductNotFoundException ex
     ) {
+
         ErrorResponse error =
-                new ErrorResponse(ex.getMessage(), 404);
+                new ErrorResponse(
+                        LocalDateTime.now(),
+                        404,
+                        List.of(ex.getMessage())
+                );
 
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)

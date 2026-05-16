@@ -1,4 +1,5 @@
 import api from '../services/api'
+import { Link } from 'react-router-dom'
 
 function ProductList({
     products,
@@ -36,7 +37,9 @@ function ProductList({
                 Lista de Produtos
             </h2>
 
-            <table className="table">
+            <div className="table-responsive">
+
+                <table className="table">
 
                 <thead>
 
@@ -68,6 +71,13 @@ function ProductList({
 
                             <td className="d-flex gap-2">
 
+                                <Link
+                                    to={`/products/${product.id}`}
+                                    className="btn btn-info btn-sm"
+                                >
+                                    Ver
+                                </Link>
+
                                 <button
                                     className="btn btn-warning btn-sm"
                                     onClick={() =>
@@ -95,6 +105,8 @@ function ProductList({
                 </tbody>
 
             </table>
+
+        </div>
 
         </div>
     )

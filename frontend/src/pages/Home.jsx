@@ -4,6 +4,7 @@ import api from '../services/api'
 
 import ProductForm from '../components/ProductForm'
 import ProductList from '../components/ProductList'
+import { ToastContainer } from 'react-toastify'
 
 function Home() {
 
@@ -41,9 +42,9 @@ function Home() {
 
     }, [])
 
-    return (
+    return  ( 
 
-        <div className="container mt-5">
+        <div className="container-fluid container-md mt-5">
 
             <h1 className="mb-4">
                 Sistema de Produtos
@@ -60,8 +61,9 @@ function Home() {
                 onProductDeleted={loadProducts}
                 onEditProduct={handleEditProduct}
             />
-
+        <ToastContainer />
         </div>
+        
     )
 }
 

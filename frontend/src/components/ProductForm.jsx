@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import api from '../services/api'
+import { toast } from 'react-toastify'
+import Spinner from 'react-bootstrap/Spinner'
 
 function ProductForm({
     onProductCreated,
@@ -7,6 +9,8 @@ function ProductForm({
     clearEditing
 }) {
 
+    const [error, setError] = useState('')
+    const [loading, setLoading] = useState(false)
     const [name, setName] = useState('')
     const [price, setPrice] = useState('')
     const [description, setDescription] = useState('')
@@ -36,18 +40,22 @@ function ProductForm({
                         name,
                         price,
                         description
-                    }
+                    },
+                    toast.success('Produto salvo com sucesso')
+                    
                 )
 
                 clearEditing()
 
             } else {
 
-                await api.post('/products', {
+                await api.post(
+                    '/products', {
                     name,
                     price,
                     description
-                })
+                },
+            toast.success('Produto salvo com sucesso'))
             }
 
             setName('')
@@ -58,7 +66,9 @@ function ProductForm({
 
         } catch (error) {
 
+            setError('Erro ao salvar produto')
             console.log(error)
+            toast.error('Erro ao salvar produto')
         }
     }
 
@@ -75,6 +85,17 @@ function ProductForm({
                 }
 
             </h2>
+
+            {
+                error && (
+
+                    <div className="alert alert-danger">
+
+                        {error}
+
+                    </div>
+                )
+            }   
 
             <form onSubmit={handleSubmit}>
 
@@ -134,7 +155,18 @@ function ProductForm({
                         {
                             editingProduct
                                 ? 'Atualizar'
-                                : 'Salvar'
+                                : loading
+                                    ? (
+                                        <Spinner
+                                            animation="border"
+                                            size="sm"
+                                        />
+                                    )
+                                    : (
+                                        editingProduct
+                                            ? 'Atualizar'
+                                            : 'Salvar'
+                                    )
                         }
 
                     </button>
