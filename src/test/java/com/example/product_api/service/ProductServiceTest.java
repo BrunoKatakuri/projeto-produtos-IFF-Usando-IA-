@@ -37,9 +37,12 @@ public class ProductServiceTest {
         ProductRequestDTO dto =
                 new ProductRequestDTO();
 
-        dto.setName("Notebook");
+        dto.setName("Notebook Ryzen 7");
         dto.setPrice(Double.valueOf(3500));
         dto.setDescription("Notebook gamer");
+        dto.setStockQuantity(10);
+        dto.setCategory("Notebook");
+        dto.setActive(true);
 
         Product product =
                 new Product();
@@ -47,6 +50,9 @@ public class ProductServiceTest {
         product.setName(dto.getName());
         product.setPrice(dto.getPrice());
         product.setDescription(dto.getDescription());
+        product.setStockQuantity(10);
+        product.setCategory("Notebook");
+        product.setActive(true);
 
         when(repository.save(any(Product.class)))
                 .thenReturn(product);
@@ -57,9 +63,21 @@ public class ProductServiceTest {
         assertNotNull(response);
 
         assertEquals(
-                "Notebook",
+                "Notebook Ryzen 7",
                 response.getName()
         );
+
+        assertEquals(
+                "Notebook",
+                response.getCategory()
+        );
+
+        assertEquals(
+                10,
+                response.getStockQuantity()
+        );
+
+        assertTrue(response.getActive());
 
         verify(repository, times(1))
                 .save(any(Product.class));

@@ -14,6 +14,9 @@ function ProductForm({
     const [name, setName] = useState('')
     const [price, setPrice] = useState('')
     const [description, setDescription] = useState('')
+    const [stockQuantity, setStockQuantity] = useState(0)
+    const [category, setCategory] = useState("")
+    const [active, setActive] = useState(true)
 
     useEffect(() => {
 
@@ -22,6 +25,9 @@ function ProductForm({
             setName(editingProduct.name)
             setPrice(editingProduct.price)
             setDescription(editingProduct.description)
+            setStockQuantity(editingProduct.stockQuantity)
+            setCategory(editingProduct.category)
+            setActive(editingProduct.active)
         }
 
     }, [editingProduct])
@@ -53,7 +59,10 @@ function ProductForm({
                     '/products', {
                     name,
                     price,
-                    description
+                    description,
+                    stockQuantity,
+                    category,
+                    active
                 },
             toast.success('Produto salvo com sucesso'))
             }
@@ -61,6 +70,9 @@ function ProductForm({
             setName('')
             setPrice('')
             setDescription('')
+            setStockQuantity(0)
+            setCategory("")
+            setActive(true)
 
             onProductCreated()
 
@@ -142,6 +154,59 @@ function ProductForm({
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                     />
+
+                </div>
+
+                <div className="mb-3">
+                {/* NOVO CAMPO */}
+                <label className="form-label">
+                        Quantidade em estoque
+                    </label>
+                <input
+                    type="number"
+                    className="form-control mb-2"
+                    placeholder="Quantidade em estoque"
+                    value={stockQuantity}
+                    onChange={(e) =>
+                        setStockQuantity(e.target.value)
+                    }
+                />
+                </div>
+
+                <div className="mb-3">
+                {/* NOVO CAMPO */}
+                <label className="form-label">
+                        Categoria
+                    </label>
+                <input
+                    type="text"
+                    className="form-control mb-2"
+                    placeholder="Categoria"
+                    value={category}
+                    onChange={(e) =>
+                        setCategory(e.target.value)
+                    }
+                />
+                </div>
+
+                <div className="mb-3">
+                {/* NOVO CAMPO */}
+                <div className="form-check mb-3">
+
+                    <input
+                        type="checkbox"
+                        className="form-check-input"
+                        checked={active}
+                        onChange={(e) =>
+                            setActive(e.target.checked)
+                        }
+                    />
+
+                    <label className="form-check-label">
+                        Produto ativo
+                    </label>
+                </div>
+
 
                 </div>
 

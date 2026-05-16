@@ -3,7 +3,15 @@ package com.example.product_api.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProductRequestDTO {
 
     @NotBlank(message = "Nome é obrigatório")
@@ -15,29 +23,9 @@ public class ProductRequestDTO {
 
     private String description;
 
-    public ProductRequestDTO() {}
+    private Integer stockQuantity;
 
-    public String getName() {
-        return name;
-    }
+    private String category;
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    private Boolean active;
 }

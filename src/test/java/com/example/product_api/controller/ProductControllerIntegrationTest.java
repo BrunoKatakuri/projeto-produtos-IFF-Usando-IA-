@@ -36,6 +36,9 @@ public class ProductControllerIntegrationTest {
         dto.setName("Mouse Gamer");
         dto.setPrice(150.0);
         dto.setDescription("RGB");
+        dto.setStockQuantity(20);
+        dto.setCategory("Hardware");
+        dto.setActive(true);
 
         mockMvc.perform(
                         post("/api/products")

@@ -48,6 +48,9 @@ function ProductList({
                     <th>Nome</th>
                     <th>Preço</th>
                     <th>Descrição</th>
+                    <th>Estoque</th>
+                    <th>Categoria</th>
+                    <th>Ativo</th>
                     <th>Ações</th>
 
                 </tr>
@@ -68,6 +71,14 @@ function ProductList({
                             </td>
 
                             <td>{product.description}</td>
+
+                            <td>{product.stockQuantity}</td>
+
+                            <td>{product.category}</td>
+
+                            <td>
+                                {product.active ? "Sim" : "Não"}
+                            </td>
 
                             <td className="d-flex gap-2">
 

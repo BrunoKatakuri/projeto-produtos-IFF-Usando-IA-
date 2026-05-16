@@ -70,6 +70,21 @@ function ProductDetails() {
                     {product.description}
                 </p>
 
+                <p>
+                    <strong>Categoria:</strong>
+                    {product.category}
+                </p>
+
+                <p>
+                    <strong>Estoque:</strong>
+                    {product.stockQuantity}
+                </p>
+
+                <p>
+                    <strong>Status:</strong>
+                    {product.active ? "Ativo" : "Inativo"}
+                </p>
+
                 <Link
                     to="/"
                     className="btn btn-primary"

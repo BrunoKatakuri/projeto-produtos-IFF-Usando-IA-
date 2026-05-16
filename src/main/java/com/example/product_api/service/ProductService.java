@@ -29,6 +29,9 @@ public class ProductService {
         product.setName(dto.getName());
         product.setPrice(dto.getPrice());
         product.setDescription(dto.getDescription());
+        product.setStockQuantity(dto.getStockQuantity());
+        product.setCategory(dto.getCategory());
+        product.setActive(dto.getActive());
 
         Product saved = repository.save(product);
         logger.info("Criando produto: {}", dto.getName());
@@ -52,7 +55,10 @@ public class ProductService {
                 product.getId(),
                 product.getName(),
                 product.getPrice(),
-                product.getDescription()
+                product.getDescription(),
+                product.getStockQuantity(),
+                product.getCategory(),
+                product.getActive()
         );
     }
 
@@ -67,6 +73,9 @@ public class ProductService {
         product.setName(dto.getName());
         product.setPrice(dto.getPrice());
         product.setDescription(dto.getDescription());
+        product.setStockQuantity(dto.getStockQuantity());
+        product.setCategory(dto.getCategory());
+        product.setActive(dto.getActive());
 
         Product updatedProduct = repository.save(product);
 
@@ -74,7 +83,10 @@ public class ProductService {
                 updatedProduct.getId(),
                 updatedProduct.getName(),
                 updatedProduct.getPrice(),
-                updatedProduct.getDescription()
+                updatedProduct.getDescription(),
+                updatedProduct.getStockQuantity(),
+                updatedProduct.getCategory(),
+                updatedProduct.getActive()
         );
     }
 
@@ -91,7 +103,10 @@ public class ProductService {
                 product.getId(),
                 product.getName(),
                 product.getPrice(),
-                product.getDescription()
+                product.getDescription(),
+                product.getStockQuantity(),
+                product.getCategory(),
+                product.getActive()
         );
     }
 
